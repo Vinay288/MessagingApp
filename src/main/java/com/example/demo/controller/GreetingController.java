@@ -25,9 +25,10 @@ private final AtomicLong counter=new AtomicLong();
 private IGreetingService greetingService;
 
 @GetMapping("/greeting")
-public Greeting greeting(@RequestParam(value="name" ,defaultValue = "World")String name) {
+public Greeting greeting(@RequestParam(value="firstName",defaultValue = "")String firstName,@RequestParam(value="lastName",defaultValue = "")String lastName) {
 	User user = new User();
-	user.setFirstName(name);
+	user.setFirstName(firstName);
+	user.setLastName(lastName);
 	return greetingService.addGreeting(user);
 }
 
