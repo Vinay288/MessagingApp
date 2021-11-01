@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,10 +25,11 @@ public class GreetingController {
 
 	private static String template = "Hello, %s!";
 	private final AtomicLong counter = new AtomicLong();
+
 	@Autowired
 	private IGreetingService greetingService;
 
-	@GetMapping("/greeting")
+	@PostMapping("/post")
 	public Greeting greeting(@RequestParam(value = "firstName", defaultValue = "") String firstName,
 			@RequestParam(value = "lastName", defaultValue = "") String lastName) {
 		User user = new User();
@@ -56,8 +59,8 @@ public class GreetingController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public void deleteGreeting(@PathVariable Long id) {
-		greetingService.deleteGreeting(id);
+	public ResponseEntity<HttpStatus> deleteGreeting(@PathVariable Long id) {
+		return greetingService.deleteGreeting(id);
 	}
 
 }
