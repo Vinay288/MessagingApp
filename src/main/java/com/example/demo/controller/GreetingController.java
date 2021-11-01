@@ -32,15 +32,9 @@ public Greeting greeting(@RequestParam(value="firstName",defaultValue = "")Strin
 	return greetingService.addGreeting(user);
 }
 
-@RequestMapping(value = { "/query" })
-public Greeting sayHi(@RequestParam(value = "fname", defaultValue = "vinay") String fname,
-		@RequestParam(value = "lname", defaultValue = "Hiremath") String lname) {
-	return new Greeting(counter.incrementAndGet(),String.format(template, fname+" "+lname));
-}
-
-@GetMapping("/param/{message}")
-public Greeting parameterName(@PathVariable String message) {
-	return new Greeting(counter.incrementAndGet(),String.format(template, message));
+@GetMapping("/get/{id}")
+public String getMessageById(@PathVariable Long id) {
+	return greetingService.getGreetingById(id).getMessage();
 	}
 
 @PostMapping("/post")
