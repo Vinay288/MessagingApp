@@ -42,13 +42,17 @@ public List<Greeting> getMessages() {
 	return greetingService.getAllGreetings();
 	}
 
-
+@PutMapping("/edit/{id}")
+public Greeting sayHelloPutMethod(@PathVariable Long id,@RequestParam(value="firstName",defaultValue = "")String firstName,@RequestParam(value="lastName",defaultValue = "")String lastName)
+{
+	User user = new User();
+	user.setFirstName(firstName);
+	user.setLastName(lastName);
+	return greetingService.editGreeting(id,user);
+}
 @PostMapping("/post")
 public Greeting setUser(@RequestBody Greeting greeting) {
 	return new Greeting(counter.incrementAndGet(),String.format(template, greeting.getMessage()));
 }
-@PutMapping("/put/{firstName}")
-public Greeting sayHelloPutMethod(@PathVariable String firstName,@RequestParam(value="lastName",defaultValue="Hiremath") String lastName) {
-	return new Greeting(counter.incrementAndGet(),String.format(template, firstName+" "+lastName));
-}
+
 }
