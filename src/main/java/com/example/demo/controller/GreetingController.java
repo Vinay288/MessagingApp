@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public Greeting greeting(@RequestParam(value="firstName",defaultValue = "")Strin
 public String getMessageById(@PathVariable Long id) {
 	return greetingService.getGreetingById(id).getMessage();
 	}
+@GetMapping("/getAll")
+public List<Greeting> getMessages() {
+	return greetingService.getAllGreetings();
+	}
+
 
 @PostMapping("/post")
 public Greeting setUser(@RequestBody Greeting greeting) {
